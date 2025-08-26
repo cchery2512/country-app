@@ -11,8 +11,54 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
-      <tr></tr>
-    </tbody>
+
+    @if(errorMessage()){
+      <dialog open class="modal" id="my_modal_3">
+        <div class="modal-box">
+          <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="my_modal_3.close()">✕</button>
+          </form>
+          <h3 class="text-lg font-bold text-error">Error!</h3>
+          <p class="py-4">{{ errorMessage() }}</p>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+          <button onclick="my_modal_3.close()">Cerrar</button>
+        </form>
+      </dialog>
+    }
+
+    @if(isLoading()){
+      <app-loading />
+    }
+    @if (!isEmpty() && !isLoading()) {
+      <tbody>
+        @for (country of countries(); track country.cca2; let index = $index) {
+          <tr>
+            <td>{{$index + 1}}</td>
+            <td>{{ country.flag }}</td>
+            <td>
+              <img src="{{ country.svg }}" [alt]="country.name"
+                class="w-10"
+              >
+            </td>
+            <td>{{ country.name }}</td>
+            <td>{{ country.capital }}</td>
+            <td>
+              <span class="badge badge-secondary">{{ country.poputation | number }}</span>
+            </td>
+            <td class="link-primary cursor-pointer">
+              <a [routerLink]="['/country/by', country.cca2]">Más información...</a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    }
+
+    <!-- @if(isEmpty() && !isLoading()){
+      <tr>
+        <td colspan="8" class="text-center">No se encrontraron resultados</td>
+      </tr>
+    } -->
+
   </table>
 </section>
