@@ -14,7 +14,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 })
 export class ByCapitalPageComponent {
   public countryService = inject(CountryService);
-  query = signal('');
+  query = signal('', {equal: () => false});
 
   countryResource = rxResource({
     request: () => ({ query: this.query() }),
