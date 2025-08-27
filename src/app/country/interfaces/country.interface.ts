@@ -4,5 +4,8 @@ export interface Country{
   svg: string,
   name?: string,
   capital: string,
-  poputation: number
+  poputation: number,
+
+  region: string,
+  subRegion: string,
 }
